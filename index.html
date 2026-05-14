@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>P4!N X BDWIN24</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#000;
+overflow:hidden;
+}
+
+/* PAGE */
+
+.page{
+width:100%;
+height:100vh;
+display:none;
+position:relative;
+}
+
+.page.active{
+display:block;
+}
+
+/* IFRAME */
+
+iframe{
+width:100%;
+height:100%;
+border:none;
+background:#111;
+}
+
+/* NAVIGATION */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:60px;
+display:flex;
+background:#050505;
+border-top:1px solid #ff003c;
+z-index:99999;
+}
+
+.nav-btn{
+flex:1;
+border:none;
+background:none;
+color:#666;
+font-size:13px;
+font-weight:bold;
+}
+
+.nav-btn.active{
+color:#ff003c;
+text-shadow:0 0 10px #ff003c;
+}
+
+/* BOT PAGE */
+
+.bot-wrap{
+padding:15px;
+padding-bottom:80px;
+color:#fff;
+overflow:auto;
+height:100vh;
+}
+
+.top-box{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,0,60,0.4);
+border-radius:20px;
+padding:20px;
+text-align:center;
+margin-top:15px;
+}
+
+/* TIMER */
+
+.timer{
+font-size:55px;
+font-weight:900;
+color:#ff003c;
+margin-top:10px;
+}
+
+/* FINAL PREDICTION */
+
+.predict{
+font-size:38px;
+font-weight:bold;
+margin-top:12px;
+}
+
+/* BOT BOXES */
+
+.bot-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:18px;
+}
+
+.bot-card{
+background:rgba(255,255,255,0.05);
+border-radius:15px;
+padding:15px;
+text-align:center;
+}
+
+.bot-name{
+font-size:11px;
+color:#888;
+margin-bottom:8px;
+}
+
+.bot-predict{
+font-size:24px;
+font-weight:bold;
+}
+
+/* HISTORY */
+
+.history{
+margin-top:15px;
+background:rgba(255,255,255,0.04);
+border-radius:15px;
+padding:10px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
+font-size:12px;
+}
+
+/* FLOAT BUTTON */
+
+.float-btn{
+position:fixed;
+width:52px;
+height:52px;
+border-radius:50%;
+right:20px;
+bottom:100px;
+z-index:999999;
+box-shadow:0 0 18px #ff003c;
+touch-action:none;
+user-select:none;
+object-fit:cover;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+right:20px;
+bottom:180px;
+width:190px;
+background:#0a0a0a;
+border:1px solid #ff003c;
+border-radius:16px;
+padding:14px;
+display:none;
+z-index:999999;
+color:#fff;
+touch-action:none;
+user-select:none;
+}
+
+/* CLOSE BUTTON */
+
+.close-btn{
+position:absolute;
+top:-12px;
+right:-12px;
+width:28px;
+height:28px;
+background:#ff003c;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+font-weight:bold;
+box-shadow:0 0 10px #ff003c;
+}
+
+/* POPUP */
+
+.popup-title{
+font-size:11px;
+color:#ff003c;
+margin-bottom:10px;
+text-align:center;
+}
+
+.popup-item{
+margin-bottom:12px;
+text-align:center;
+}
+
+.popup-label{
+font-size:10px;
+color:#888;
+}
+
+.popup-value{
+font-size:20px;
+font-weight:bold;
+margin-top:4px;
+word-break:break-all;
+overflow-wrap:break-word;
+}
+
+.big{
+color:#ff003c;
+}
+
+.small{
+color:#00ff88;
+}
+
+.wait{
+color:#fff;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HOME PAGE -->
+
+<div class="page active" id="homePage">
+
+<iframe src="https://23bdwin24.com/register?inviteCode=8VC62VN&from=web"></iframe>
+
+<!-- FLOAT BUTTON -->
+
+<img
+src="pain.png"
+class="float-btn"
+id="floatBtn"
+/>
+
+<!-- POPUP -->
+
+<div class="popup" id="popupBox">
+
+<div class="close-btn"
+id="closePopup">
+✕
+</div>
+
+<div class="popup-title">
+LIVE BOT PANEL
+</div>
+
+<div class="popup-item">
+
+<div class="popup-label">
+RUNNING PERIOD
+</div>
+
+<div class="popup-value"
+id="popupPeriod"
+style="
+font-size:14px;
+line-height:18px;
+padding:0 5px;
+word-break:break-all;
+overflow-wrap:break-word;
+">
+--
+</div>
+</div>
+
+<div class="popup-item">
+
+<div class="popup-label">
+30 SEC TIMER
+</div>
+
+<div class="popup-value"
+id="popupTimer">
+30
+</div>
+
+</div>
+
+<div class="popup-item">
+
+<div class="popup-label">
+FINAL PREDICTION
+</div>
+
+<div class="popup-value"
+id="popupPrediction">
+WAIT
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BOT PAGE -->
+
+<div class="page" id="botPage">
+
+<div class="bot-wrap">
+
+<div class="top-box">
+
+<div style="font-size:12px;color:#888;">
+RUNNING PERIOD
+</div>
+
+<div id="period"
+style="font-size:15px;margin-top:5px;">
+--
+</div>
+
+<div class="timer"
+id="timer">
+30
+</div>
+
+<div class="predict wait"
+id="finalPrediction">
+WAIT
+</div>
+
+<!-- BOT GRID -->
+
+<div class="bot-grid">
+
+<!-- REX -->
+
+<div class="bot-card"
+style="border:1px solid rgba(255,0,60,0.4);">
+
+<div class="bot-name">
+REX BOT
+</div>
+
+<div class="bot-predict big"
+id="rexPrediction">
+BIG
+</div>
+
+</div>
+
+<!-- XR -->
+
+<div class="bot-card"
+style="border:1px solid rgba(0,255,136,0.4);">
+
+<div class="bot-name">
+XR BOT
+</div>
+
+<div class="bot-predict small"
+id="xrPrediction">
+SMALL
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- HISTORY -->
+
+<div class="history"
+id="historyBox">
+</div>
+
+</div>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<div class="bottom-nav">
+
+<button class="nav-btn active"
+onclick="showPage('homePage',this)">
+HOME PAGE
+</button>
+
+<button class="nav-btn"
+onclick="showPage('botPage',this)">
+BOT PAGE
+</button>
+
+</div>
+
+<script>
+
+/* API */
+
+const API =
+"https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json";
+
+/* VARIABLES */
+
+let rexLast = "";
+let xrLast = "";
+let followBot = null;
+let finalPrediction = "WAIT";
+
+/* PAGE SWITCH */
+
+function showPage(id,btn){
+
+document.querySelectorAll('.page')
+.forEach(p=>p.classList.remove('active'));
+
+document.getElementById(id)
+.classList.add('active');
+
+document.querySelectorAll('.nav-btn')
+.forEach(b=>b.classList.remove('active'));
+
+btn.classList.add('active');
+
+}
+
+/* PREDICTION SYSTEM */
+
+function generatePrediction(history){
+
+const real =
+parseInt(history[0].number) >= 5
+? "BIG"
+: "SMALL";
+
+/* CHECK WINNER */
+
+if(rexLast !== "" && xrLast !== ""){
+
+if(rexLast === real){
+followBot = "REX";
+}
+
+else if(xrLast === real){
+followBot = "XR";
+}
+
+else{
+followBot = null;
+}
+
+}
+
+/* RANDOM */
+
+rexLast =
+Math.random() > 0.5
+? "BIG"
+: "SMALL";
+
+xrLast =
+Math.random() > 0.5
+? "BIG"
+: "SMALL";
+
+/* SHOW BOTS */
+
+const rexEl =
+document.getElementById(
+"rexPrediction"
+);
+
+rexEl.innerText = rexLast;
+
+rexEl.className =
+"bot-predict " +
+(rexLast==="BIG"
+? "big"
+: "small");
+
+const xrEl =
+document.getElementById(
+"xrPrediction"
+);
+
+xrEl.innerText = xrLast;
+
+xrEl.className =
+"bot-predict " +
+(xrLast==="BIG"
+? "big"
+: "small");
+
+/* FOLLOW */
+
+if(followBot === "REX"){
+return rexLast;
+}
+
+if(followBot === "XR"){
+return xrLast;
+}
+
+return "WAIT";
+
+}
+
+/* UPDATE DATA */
+
+async function updateData(){
+
+try{
+
+const res =
+await fetch(API);
+
+const data =
+await res.json();
+
+const list =
+data.data.list;
+
+/* PERIOD */
+
+const lastIssue =
+String(list[0].issueNumber);
+
+const nextPeriod =
+String(
+BigInt(lastIssue) + 1n
+);
+
+document.getElementById(
+"period"
+).innerText =
+nextPeriod;
+
+document.getElementById(
+"popupPeriod"
+).innerText =
+nextPeriod;
+
+/* FINAL PREDICTION */
+
+finalPrediction =
+generatePrediction(list);
+
+const finalEl =
+document.getElementById(
+"finalPrediction"
+);
+
+finalEl.innerText =
+finalPrediction;
+
+finalEl.className =
+"predict " +
+(finalPrediction==="BIG"
+? "big"
+: finalPrediction==="SMALL"
+? "small"
+: "wait");
+
+/* POPUP */
+
+const popupPred =
+document.getElementById(
+"popupPrediction"
+);
+
+popupPred.innerText =
+finalPrediction;
+
+popupPred.className =
+"popup-value " +
+(finalPrediction==="BIG"
+? "big"
+: finalPrediction==="SMALL"
+? "small"
+: "wait");
+
+/* HISTORY */
+
+const box =
+document.getElementById(
+"historyBox"
+);
+
+box.innerHTML =
+'<div style="font-size:11px;color:#888;margin-bottom:10px;">LAST HISTORY</div>';
+
+list.slice(0,10).forEach(i=>{
+
+const type =
+parseInt(i.number)>=5
+? "BIG"
+: "SMALL";
+
+box.innerHTML += `
+
+<div class="row">
+
+<span>${i.issueNumber}</span>
+
+<span>${i.number}</span>
+
+<span style="
+color:${type==="BIG"
+? "#ff003c"
+: "#00ff88"}">
+
+${type}
+
+</span>
+
+</div>
+
+`;
+
+});
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+/* TIMER */
+
+setInterval(()=>{
+
+const sec =
+30 - (new Date().getSeconds()%30);
+
+const formatted =
+sec<10
+? "0"+sec
+: sec;
+
+document.getElementById(
+"timer"
+).innerText =
+formatted;
+
+document.getElementById(
+"popupTimer"
+).innerText =
+formatted;
+
+if(sec===30){
+updateData();
+}
+
+},1000);
+
+/* FIRST LOAD */
+
+updateData();
+
+/* FLOAT BUTTON */
+
+const floatBtn =
+document.getElementById("floatBtn");
+
+const popupBox =
+document.getElementById("popupBox");
+
+const closePopup =
+document.getElementById("closePopup");
+
+/* OPEN */
+
+floatBtn.onclick = ()=>{
+
+popupBox.style.display = "block";
+
+floatBtn.style.display = "none";
+
+};
+
+/* CLOSE */
+
+closePopup.onclick = ()=>{
+
+popupBox.style.display = "none";
+
+floatBtn.style.display = "block";
+
+};
+
+/* MOVE BUTTON */
+
+let btnDrag = false;
+let btnOffsetX = 0;
+let btnOffsetY = 0;
+
+floatBtn.addEventListener(
+"touchstart",
+(e)=>{
+
+btnDrag = true;
+
+btnOffsetX =
+e.touches[0].clientX
+- floatBtn.offsetLeft;
+
+btnOffsetY =
+e.touches[0].clientY
+- floatBtn.offsetTop;
+
+}
+);
+
+document.addEventListener(
+"touchmove",
+(e)=>{
+
+if(!btnDrag) return;
+
+floatBtn.style.left =
+(e.touches[0].clientX-btnOffsetX)
++"px";
+
+floatBtn.style.top =
+(e.touches[0].clientY-btnOffsetY)
++"px";
+
+floatBtn.style.right =
+"auto";
+
+floatBtn.style.bottom =
+"auto";
+
+}
+);
+
+document.addEventListener(
+"touchend",
+()=>{
+
+btnDrag = false;
+
+}
+);
+
+/* MOVE POPUP */
+
+let popupDrag = false;
+let popupOffsetX = 0;
+let popupOffsetY = 0;
+
+popupBox.addEventListener(
+"touchstart",
+(e)=>{
+
+popupDrag = true;
+
+popupOffsetX =
+e.touches[0].clientX
+- popupBox.offsetLeft;
+
+popupOffsetY =
+e.touches[0].clientY
+- popupBox.offsetTop;
+
+}
+);
+
+document.addEventListener(
+"touchmove",
+(e)=>{
+
+if(!popupDrag) return;
+
+popupBox.style.left =
+(e.touches[0].clientX-popupOffsetX)
++"px";
+
+popupBox.style.top =
+(e.touches[0].clientY-popupOffsetY)
++"px";
+
+popupBox.style.right =
+"auto";
+
+popupBox.style.bottom =
+"auto";
+
+}
+);
+
+document.addEventListener(
+"touchend",
+()=>{
+
+popupDrag = false;
+
+}
+);
+
+</script>
+
+</body>
+</html>
